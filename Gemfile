@@ -15,3 +15,7 @@ group :test do
   gem "rspec", require: false
   gem "rubocop-rspec", require: false
 end
+
+group :vscode do
+  gem "ruby-lsp-rspec", require: false
+end
