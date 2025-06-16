@@ -14,26 +14,30 @@ module Schemify
     end
 
     class << self
-      def json_name(value = nil)
+      def json_name(value = nil, dollar_prefix: false)
         return @json_name if value.nil?
 
-        @json_name = Naming.json_name(value)
+        @json_name = if dollar_prefix
+                       "$#{Naming.json_name(value)}"
+                     else
+                       Naming.json_name(value)
+                     end
       end
     end
 
     # Dynamically create Keyword subclasses and methods
     module Builder
-      def setup_vocabulary(keyword_names)
-        setup_keyword_classes keyword_names
+      def setup_vocabulary(keyword_names, dollar_prefix: false)
+        setup_keyword_classes keyword_names, dollar_prefix: dollar_prefix
         setup_keyword_methods_module keyword_names
       end
 
       private
 
-      def setup_keyword_classes(names)
+      def setup_keyword_classes(names, dollar_prefix: false)
         names.each do |name|
           klass = Class.new(Keyword) do
-            json_name name
+            json_name name, dollar_prefix: dollar_prefix
           end
           const_name = Naming.class_name(name)
           const_set(const_name, klass)

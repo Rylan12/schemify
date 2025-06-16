@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
-require_relative "vocabularies/meta_data"
+require_relative "vocabularies"
 
 module Schemify
   # A JSON Schema representation
   class Schema
+    include Vocabularies::Core::KeywordMethods
+    include Vocabularies::Applicator::KeywordMethods
+    include Vocabularies::Unevaluated::KeywordMethods
+    include Vocabularies::Validation::KeywordMethods
     include Vocabularies::MetaData::KeywordMethods
+    include Vocabularies::FormatAnnotation::KeywordMethods
+    include Vocabularies::Content::KeywordMethods
 
     def initialize(&)
       @keywords = {}
