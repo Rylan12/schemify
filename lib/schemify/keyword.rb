@@ -50,9 +50,7 @@ module Schemify
         Module.new do
           names.each do |name|
             klass = namespace.const_get(Naming.class_name(name))
-            define_method(name) do |value = nil|
-              return @keywords[name] if value.nil?
-
+            define_method(name) do |value|
               @keywords[name] = klass.new(value)
             end
           end

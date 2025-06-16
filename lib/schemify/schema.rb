@@ -15,7 +15,7 @@ module Schemify
     def to_h
       schema = {}
       @keywords.each_value do |keyword|
-        schema.merge!(keyword.to_h) if keyword
+        schema.merge!(keyword.to_h)
       end
       schema
     end
