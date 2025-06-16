@@ -2,6 +2,9 @@
 
 Use Ruby code to generate JSON schemas with intelligent defaults, validation, and versioning.
 
+> [!WARNING]
+> This gem is in the _very_ early stages of development, and is not yet ready for general use.
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
@@ -18,7 +21,50 @@ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
 
 ## Usage
 
-TODO: Write usage instructions here
+More elegant usage will be added in the future. For now, a schema can be created using:
+
+```ruby
+schema = Schemify::Schema.new do
+  schema "https://json-schema.org/draft/2020-12/schema"
+  id "https://example.com/product.schema.json"
+
+  title "Product"
+  description "A product from Acme's catalog"
+
+  type "object"
+  properties({
+               "productId" => {
+                 "description" => "The unique identifier for a product",
+                 "type" => "integer"
+               },
+               "productName" => {
+                 "description" => "Name of the product",
+                 "type" => "string"
+               },
+               "price" => {
+                 "description" => "The price of the product",
+                 "type" => "number",
+                 "exclusiveMinimum" => 0
+               },
+               "tags" => {
+                 "description" => "Tags for the product",
+                 "type" => "array",
+                 "items" => {
+                   "type" => "string"
+                 },
+                 "minItems" => 1,
+                 "uniqueItems" => true
+               }
+             })
+  required %w[productId productName price]
+end
+
+# Ruby hash representation of the schema
+schema.to_h
+
+# JSON representation of the schema
+JSON.generate(schema.to_h)
+```
 
 ## Development
 
