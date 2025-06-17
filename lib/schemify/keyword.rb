@@ -18,10 +18,10 @@ module Schemify
         return @json_name if value.nil?
 
         @json_name = if dollar_prefix
-                       "$#{Naming.json_name(value)}"
-                     else
-                       Naming.json_name(value)
-                     end
+          "$#{Naming.json_name(value)}"
+        else
+          Naming.json_name(value)
+        end
       end
     end
 

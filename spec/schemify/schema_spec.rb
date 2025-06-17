@@ -19,13 +19,13 @@ RSpec.describe Schemify::Schema do
 
   let(:expected_hash) do
     {
-      "title" => "Example Schema",
+      "title"       => "Example Schema",
       "description" => "This is an example schema.",
-      "default" => "default value",
-      "deprecated" => true,
-      "readOnly" => false,
-      "writeOnly" => true,
-      "examples" => %w[example1 example2]
+      "default"     => "default value",
+      "deprecated"  => true,
+      "readOnly"    => false,
+      "writeOnly"   => true,
+      "examples"    => %w[example1 example2],
     }
   end
 

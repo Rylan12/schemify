@@ -24,7 +24,7 @@ gem install schemify
 More elegant usage will be added in the future. For now, a schema can be created using:
 
 ```ruby
-schema = Schemify::Schema.new do
+my_schema = Schemify::Schema.new do
   schema "https://json-schema.org/draft/2020-12/schema"
   id "https://example.com/product.schema.json"
 
@@ -33,37 +33,32 @@ schema = Schemify::Schema.new do
 
   type "object"
   properties({
-               "productId" => {
-                 "description" => "The unique identifier for a product",
-                 "type" => "integer"
-               },
-               "productName" => {
-                 "description" => "Name of the product",
-                 "type" => "string"
-               },
-               "price" => {
-                 "description" => "The price of the product",
-                 "type" => "number",
-                 "exclusiveMinimum" => 0
-               },
-               "tags" => {
-                 "description" => "Tags for the product",
-                 "type" => "array",
-                 "items" => {
-                   "type" => "string"
-                 },
-                 "minItems" => 1,
-                 "uniqueItems" => true
-               }
-             })
+    "productId"   => {
+      "description" => "The unique identifier for a product",
+      "type"        => "integer",
+    },
+    "productName" => {
+      "description" => "Name of the product",
+      "type"        => "string",
+    },
+    "tags"        => {
+      "description" => "Tags for the product",
+      "type"        => "array",
+      "items"       => {
+        "type" => "string",
+      },
+      "minItems"    => 1,
+      "uniqueItems" => true,
+    },
+  })
   required %w[productId productName price]
 end
 
 # Ruby hash representation of the schema
-schema.to_h
+my_schema.to_h
 
 # JSON representation of the schema
-JSON.generate(schema.to_h)
+JSON.generate(my_schema.to_h)
 ```
 
 ## Development
